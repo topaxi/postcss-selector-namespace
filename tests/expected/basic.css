@@ -1,5 +1,5 @@
 /* Toplevel pseudo */
-.namespaced selector {
+.namespaced :hover {
   color: red;
 }
 
@@ -9,7 +9,7 @@
 }
 
 /* toplevel class */
-.namespaced selector {
+.namespaced .title {
   font-weight: bold;
 }
 
@@ -19,16 +19,16 @@
 }
 
 /* Toplevel element */
-.namespaced selector {
+.namespaced div {
   display: block;
 }
 
 /* Multiple selecors */
-.namespaced selector, .namespaced selector {
+.namespaced .foo, .namespaced .bar {
   color: yellow;
 }
 
 /* NOT */
-.namespaced selector {
+.namespaced :not(.foo, .bar) {
   color: purple;
 }
