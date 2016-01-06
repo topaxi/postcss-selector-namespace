@@ -1,0 +1,34 @@
+/* Toplevel pseudo */
+:hover {
+  color: red;
+}
+
+/* Custom selector */
+:--component {
+  color: blue;
+}
+
+/* toplevel class */
+.title {
+  font-weight: bold;
+}
+
+/* Custom */
+:--component .title {
+  color: black;
+}
+
+/* Toplevel element */
+div {
+  display: block;
+}
+
+/* Multiple selecors */
+.foo, .bar {
+  color: yellow;
+}
+
+/* NOT */
+:not(.foo, .bar) {
+  color: purple;
+}

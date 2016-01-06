@@ -1,0 +1,34 @@
+/* Toplevel pseudo */
+.namespaced selector {
+  color: red;
+}
+
+/* Custom selector */
+.namespaced {
+  color: blue;
+}
+
+/* toplevel class */
+.namespaced selector {
+  font-weight: bold;
+}
+
+/* Custom */
+.namespaced .title {
+  color: black;
+}
+
+/* Toplevel element */
+.namespaced selector {
+  display: block;
+}
+
+/* Multiple selecors */
+.namespaced selector, .namespaced selector {
+  color: yellow;
+}
+
+/* NOT */
+.namespaced selector {
+  color: purple;
+}
