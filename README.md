@@ -53,7 +53,7 @@ will output the following css:
 
 ### `namespace`
 
-(default: '.self')
+(default: `'.self'`)
 
 The selector to prepend to each selector.
 
