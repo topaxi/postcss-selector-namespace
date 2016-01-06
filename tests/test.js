@@ -13,7 +13,7 @@ describe('Basic functionality', () => {
   it('should work', () => {
     let { css } = transform(
       fs.readFileSync(`${__dirname}/fixtures/basic.css`),
-      { selfSelector: ':--component', namespace: '.namespaced' }
+      { selfSelector: /:--component/, namespace: '.namespaced' }
     )
 
     let expected = fs.readFileSync(`${__dirname}/expected/basic.css`)
