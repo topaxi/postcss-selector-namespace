@@ -1,6 +1,6 @@
 {
   "name": "postcss-selector-namespace",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A postcss plugin to prefix each rule with a specific selector",
   "babel": {
     "presets": [
