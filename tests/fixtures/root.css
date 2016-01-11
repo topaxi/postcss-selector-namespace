@@ -1,0 +1,7 @@
+:root :--component {
+  color: red;
+}
+
+:root .foo {
+  color: blue;
+}

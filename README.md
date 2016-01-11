@@ -49,6 +49,22 @@ will output the following css:
 }
 ```
 
+Prepending `:root` to a selector prevents the selector from being namespaced:
+
+```css
+:root h1 {
+  font-weight: bold;
+}
+```
+
+will output the selector without any modification:
+
+```css
+:root h1 {
+  font-weight: bold;
+}
+```
+
 ## Options
 
 ### `namespace`
@@ -62,6 +78,12 @@ The selector to prepend to each selector.
 (default: `:--namespace`)
 
 The selector to use to apply rules directly to your namespace selector.
+
+### `ignoreRoot`
+
+(default: `true`)
+
+Selector won't be namespaced if they start with the `:root` pseudo-class.
 
 ---
 

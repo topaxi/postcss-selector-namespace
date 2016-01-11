@@ -40,4 +40,24 @@ describe('Basic functionality', () => {
 
     expect(String(css)).to.equal(String(expected))
   })
+
+  it('does not namespace :root selectors', () => {
+    let { css } = transform(
+      fs.readFileSync(`${__dirname}/fixtures/root.css`),
+      { selfSelector: /:--component/, namespace: '.my-component' }
+    )
+
+    let expected = fs.readFileSync(`${__dirname}/expected/root.css`)
+
+    expect(String(css)).to.equal(String(expected))
+  })
+
+  it('does namespace :root selectors if ignoreRoot is false', () => {
+    let { css } = transform(
+      ':root .foo {}',
+      { namespace: '.my-component', ignoreRoot: false }
+    )
+
+    expect(String(css)).to.equal(String('.my-component :root .foo {}'))
+  })
 })
