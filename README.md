@@ -91,6 +91,12 @@ Selector won't be namespaced if they start with the `:root` pseudo-class.
 
 If prefixed with this selector, selectors won't be namespaced.
 
+### `dropRoot`
+
+(default: `true`)
+
+If `true`, the `rootSelector` will be stripped from the output.
+
 ---
 
 ## [License](LICENSE)

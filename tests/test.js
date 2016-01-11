@@ -49,7 +49,7 @@ describe(':root', () => {
       { namespace: '.my-component', rootSelector: ':global' }
     )
 
-    expect(String(css)).to.equal(String('.my-component :root .foo {}:global .foo {}'))
+    expect(String(css)).to.equal(String('.my-component :root .foo {}.foo {}'))
   })
 
   it('does not namespace :root selectors', () => {
@@ -70,5 +70,14 @@ describe(':root', () => {
     )
 
     expect(String(css)).to.equal(String('.my-component :root .foo {}'))
+  })
+
+  it('does drop :root if dropRoot is true', () => {
+    let { css } = transform(
+      ':root .foo {}',
+      { namespace: '.my-component', dropRoot: false }
+    )
+
+    expect(String(css)).to.equal(String(':root .foo {}'))
   })
 })
