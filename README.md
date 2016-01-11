@@ -49,7 +49,7 @@ will output the following css:
 }
 ```
 
-Prepending `:root` to a selector prevents the selector from being namespaced:
+Prepending [`:root`](https://developer.mozilla.org/en-US/docs/Web/CSS/:root) to a selector prevents the selector from being namespaced:
 
 ```css
 :root h1 {
