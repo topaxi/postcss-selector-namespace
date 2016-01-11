@@ -85,6 +85,12 @@ The selector to use to apply rules directly to your namespace selector.
 
 Selector won't be namespaced if they start with the `:root` pseudo-class.
 
+### `rootSelector`
+
+(default: `:root`)
+
+If prefixed with this selector, selectors won't be namespaced.
+
 ---
 
 ## [License](LICENSE)

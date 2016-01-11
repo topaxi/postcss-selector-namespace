@@ -40,6 +40,17 @@ describe('Basic functionality', () => {
 
     expect(String(css)).to.equal(String(expected))
   })
+})
+
+describe(':root', () => {
+  it('is configurable', () => {
+    let { css } = transform(
+      ':root .foo {}:global .foo {}',
+      { namespace: '.my-component', rootSelector: ':global' }
+    )
+
+    expect(String(css)).to.equal(String('.my-component :root .foo {}:global .foo {}'))
+  })
 
   it('does not namespace :root selectors', () => {
     let { css } = transform(
