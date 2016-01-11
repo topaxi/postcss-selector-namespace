@@ -57,10 +57,10 @@ Prepending [`:root`](https://developer.mozilla.org/en-US/docs/Web/CSS/:root) to 
 }
 ```
 
-will output the selector without any modification:
+will output the selector without any namespace:
 
 ```css
-:root h1 {
+h1 {
   font-weight: bold;
 }
 ```
