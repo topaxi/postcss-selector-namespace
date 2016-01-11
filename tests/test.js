@@ -21,6 +21,15 @@ describe('Basic functionality', () => {
     expect(String(css)).to.equal(String(expected))
   })
 
+  it('has a default namespace selector of :--namespace', () => {
+    let { css } = transform(
+      ':--namespace {}',
+      { namespace: '.my-component' }
+    )
+
+    expect(String(css)).to.equal(String('.my-component {}'))
+  })
+
   it('works with a regexp which matches multiple selectors', () => {
     let { css } = transform(
       fs.readFileSync(`${__dirname}/fixtures/multiself.css`),
