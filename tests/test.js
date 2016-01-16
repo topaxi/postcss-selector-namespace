@@ -111,4 +111,59 @@ describe('SCSS', function() {
              '//.foo { color: blue }')
     )
   })
+
+  it('does work with rules nested in nested media queries', () => {
+    let { css } = transform(`
+      $break-small: 320px;
+      $break-large: 1200px;
+
+      :--namespace {
+        float: left;
+        width: 250px;
+        h1 {
+          font-weight: bold;
+        }
+        @media screen and (max-width: $break-small) {
+          width: 100px;
+          float: none;
+          h1 {
+            font-size: 32px;
+          }
+        }
+        @media screen and (min-width: $break-large) {
+          float: right;
+          h1 {
+            font-size: 48px;
+          }
+        }
+      }`,
+      { namespace: '.my-component' },
+      { syntax }
+    )
+
+    expect(String(css)).to.equal(`
+      $break-small: 320px;
+      $break-large: 1200px;
+
+      .my-component {
+        float: left;
+        width: 250px;
+        h1 {
+          font-weight: bold;
+        }
+        @media screen and (max-width: $break-small) {
+          width: 100px;
+          float: none;
+          h1 {
+            font-size: 32px;
+          }
+        }
+        @media screen and (min-width: $break-large) {
+          float: right;
+          h1 {
+            font-size: 48px;
+          }
+        }
+      }`)
+  })
 })
