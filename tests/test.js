@@ -87,9 +87,9 @@ describe('SCSS', function() {
 
   it('does transform basic nesting', () => {
     let { css } = transform(
-      ':--namespace { .bar { color: red; } }\n' +
+      '& { .bar { color: red; } }\n' +
       '.foo { color: blue }',
-      { namespace: '.my-component' }
+      { selfSelector: '&', namespace: '.my-component' }
     )
 
     expect(String(css)).to.equal(
@@ -100,9 +100,9 @@ describe('SCSS', function() {
 
   it('does work with single line comments', () => {
     let { css } = transform(
-      ':--namespace { .bar { color: red; } }\n' +
+      '& { .bar { color: red; } }\n' +
       '//.foo { color: blue }',
-      { namespace: '.my-component' },
+      { selfSelector: '&', namespace: '.my-component' },
       { syntax }
     )
 

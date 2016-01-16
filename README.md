@@ -65,6 +65,64 @@ h1 {
 }
 ```
 
+## SCSS support
+
+This plugin can also be process scss files and output scss again using the
+[`postcss-scss`](https://github.com/postcss/postcss-scss) module.
+
+```js
+var postcss = require('postcss')
+var postscss = require('postcss-scss')
+var selectorNamespace = require('postcss-selector-namespace')
+
+var output = postcss()
+  .use(selectorNamespace({ selfSelector: '&', namespace: 'my-component' }))
+  .process(require('fs').readFileSync('input.css', 'utf8'), { syntax: postscss })
+  .css
+```
+
+```scss
+$break = 320px;
+
+& {
+  float: left;
+  width: 250px;
+  h1 {
+    font-weight: bold;
+    font-size: 32px;
+  }
+  @media screen and (max-width: $break-small) {
+    width: 100px;
+    float: none;
+    h1 {
+      font-size: 24px;
+    }
+  }
+}
+```
+
+outputs:
+
+```scss
+$break = 320px;
+
+.my-component {
+  float: left;
+  width: 250px;
+  h1 {
+    font-weight: bold;
+    font-size: 32px;
+  }
+  @media screen and (max-width: $break-small) {
+    width: 100px;
+    float: none;
+    h1 {
+      font-size: 24px;
+    }
+  }
+}
+```
+
 ## Options
 
 ### `namespace`
