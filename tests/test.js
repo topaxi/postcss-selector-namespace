@@ -81,3 +81,34 @@ describe(':root', () => {
     expect(String(css)).to.equal(String(':root .foo {}'))
   })
 })
+
+describe('SCSS', function() {
+  const syntax = require('postcss-scss')
+
+  it('does transform basic nesting', () => {
+    let { css } = transform(
+      ':--namespace { .bar { color: red; } }\n' +
+      '.foo { color: blue }',
+      { namespace: '.my-component' }
+    )
+
+    expect(String(css)).to.equal(
+      String('.my-component { .bar { color: red; } }\n' +
+             '.my-component .foo { color: blue }')
+    )
+  })
+
+  it('does work with single line comments', () => {
+    let { css } = transform(
+      ':--namespace { .bar { color: red; } }\n' +
+      '//.foo { color: blue }',
+      { namespace: '.my-component' },
+      { syntax }
+    )
+
+    expect(String(css)).to.equal(
+      String('.my-component { .bar { color: red; } }\n' +
+             '//.foo { color: blue }')
+    )
+  })
+})
