@@ -13,7 +13,7 @@
   },
   "scripts": {
     "prepublish": "babel lib --out-dir dist",
-    "test": "mocha --compilers js:babel-register tests/test.js",
+    "test": "babel-node node_modules/.bin/babel-istanbul cover _mocha -- tests/test.js",
     "lint": "eslint lib/* tests/*"
   },
   "repository": {
@@ -37,6 +37,7 @@
     "babel": "^6.3.26",
     "babel-cli": "^6.3.17",
     "babel-eslint": "^5.0.0-beta6",
+    "babel-istanbul": "^0.6.0",
     "babel-preset-es2015": "^6.3.13",
     "babel-register": "^6.3.13",
     "chai": "^3.4.1",
