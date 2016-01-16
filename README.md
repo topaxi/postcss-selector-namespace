@@ -67,7 +67,7 @@ h1 {
 
 ## SCSS support
 
-This plugin can also be process scss files and output scss again using the
+This plugin can also process scss files and output scss again using the
 [`postcss-scss`](https://github.com/postcss/postcss-scss) module.
 
 ```js
