@@ -9,16 +9,24 @@ export function transform(input, options = {}, postcssOptions = {}) {
     .process(input, postcssOptions)
 }
 
+export function compareFixture(name, options, postcssOptions) {
+  let { css } = transform(
+    fs.readFileSync(`${__dirname}/fixtures/${name}`),
+    options,
+    postcssOptions
+  )
+
+  let expected = fs.readFileSync(`${__dirname}/expected/${name}`)
+
+  expect(String(css)).to.equal(String(expected))
+}
+
 describe('Basic functionality', () => {
   it('should work', () => {
-    let { css } = transform(
-      fs.readFileSync(`${__dirname}/fixtures/basic.css`),
-      { selfSelector: /:--component/, namespace: '.namespaced' }
-    )
-
-    let expected = fs.readFileSync(`${__dirname}/expected/basic.css`)
-
-    expect(String(css)).to.equal(String(expected))
+    compareFixture('basic.css', {
+      selfSelector: /:--component/,
+      namespace: '.namespaced'
+    })
   })
 
   it('has a default namespace selector of :--namespace', () => {
@@ -31,14 +39,10 @@ describe('Basic functionality', () => {
   })
 
   it('works with a regexp which matches multiple selectors', () => {
-    let { css } = transform(
-      fs.readFileSync(`${__dirname}/fixtures/multiself.css`),
-      { selfSelector: /&|:--component/, namespace: '.my-component' }
-    )
-
-    let expected = fs.readFileSync(`${__dirname}/expected/multiself.css`)
-
-    expect(String(css)).to.equal(String(expected))
+    compareFixture('multiself.css', {
+      selfSelector: /&|:--component/,
+      namespace: '.my-component'
+    })
   })
 })
 
@@ -53,14 +57,10 @@ describe(':root', () => {
   })
 
   it('does not namespace :root selectors', () => {
-    let { css } = transform(
-      fs.readFileSync(`${__dirname}/fixtures/root.css`),
-      { selfSelector: /:--component/, namespace: '.my-component' }
-    )
-
-    let expected = fs.readFileSync(`${__dirname}/expected/root.css`)
-
-    expect(String(css)).to.equal(String(expected))
+    compareFixture('root.css', {
+      selfSelector: /:--component/,
+      namespace: '.my-component'
+    })
   })
 
   it('does namespace :root selectors if ignoreRoot is false', () => {
