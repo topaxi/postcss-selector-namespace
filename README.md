@@ -1,4 +1,4 @@
-# postcss-selector-namespace [![Build Status](https://travis-ci.org/topaxi/postcss-selector-namespace.svg?branch=master)](https://travis-ci.org/topaxi/postcss-selector-namespace) [![Code Climate](https://codeclimate.com/github/topaxi/postcss-selector-namespace/badges/gpa.svg)](https://codeclimate.com/github/topaxi/postcss-selector-namespace)
+# postcss-selector-namespace [![Build Status](https://travis-ci.org/topaxi/postcss-selector-namespace.svg?branch=master)](https://travis-ci.org/topaxi/postcss-selector-namespace) [![Test Coverage](https://codeclimate.com/github/topaxi/postcss-selector-namespace/badges/coverage.svg)](https://codeclimate.com/github/topaxi/postcss-selector-namespace/coverage) [![Code Climate](https://codeclimate.com/github/topaxi/postcss-selector-namespace/badges/gpa.svg)](https://codeclimate.com/github/topaxi/postcss-selector-namespace)
 
 # Installation
 
