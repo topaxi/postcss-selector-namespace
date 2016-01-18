@@ -80,6 +80,15 @@ describe(':root', () => {
 
     expect(String(css)).to.equal(':root .foo {}')
   })
+
+  it('does not drop :root if it\'s the only selector', () => {
+    let { css } = transform(
+      ':root {}',
+      { namespace: '.my-component', dropRoot: true }
+    )
+
+    expect(String(css)).to.equal(':root {}')
+  })
 })
 
 describe('SCSS', function() {
@@ -117,5 +126,14 @@ describe('SCSS', function() {
       { namespace: '.my-component' },
       { syntax }
     )
+  })
+
+  it('works with :root selector', () => {
+    let { css } = transform(
+      ':root { &.bar { color: red; } }',
+      { selfSelector: '&', namespace: '.my-component', dropRoot: true }
+    )
+
+    expect(String(css)).to.equal(':root { &.bar { color: red; } }')
   })
 })
