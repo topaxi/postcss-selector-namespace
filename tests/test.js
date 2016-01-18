@@ -35,7 +35,7 @@ describe('Basic functionality', () => {
       { namespace: '.my-component' }
     )
 
-    expect(String(css)).to.equal(String('.my-component {}'))
+    expect(String(css)).to.equal('.my-component {}')
   })
 
   it('works with a regexp which matches multiple selectors', () => {
@@ -53,7 +53,7 @@ describe(':root', () => {
       { namespace: '.my-component', rootSelector: ':global' }
     )
 
-    expect(String(css)).to.equal(String('.my-component :root .foo {}.foo {}'))
+    expect(String(css)).to.equal('.my-component :root .foo {}.foo {}')
   })
 
   it('does not namespace :root selectors', () => {
@@ -69,7 +69,7 @@ describe(':root', () => {
       { namespace: '.my-component', ignoreRoot: false }
     )
 
-    expect(String(css)).to.equal(String('.my-component :root .foo {}'))
+    expect(String(css)).to.equal('.my-component :root .foo {}')
   })
 
   it('does drop :root if dropRoot is true', () => {
@@ -78,7 +78,7 @@ describe(':root', () => {
       { namespace: '.my-component', dropRoot: false }
     )
 
-    expect(String(css)).to.equal(String(':root .foo {}'))
+    expect(String(css)).to.equal(':root .foo {}')
   })
 })
 
@@ -93,8 +93,8 @@ describe('SCSS', function() {
     )
 
     expect(String(css)).to.equal(
-      String('.my-component { .bar { color: red; } }\n' +
-             '.my-component .foo { color: blue }')
+      '.my-component { .bar { color: red; } }\n' +
+      '.my-component .foo { color: blue }'
     )
   })
 
@@ -107,8 +107,8 @@ describe('SCSS', function() {
     )
 
     expect(String(css)).to.equal(
-      String('.my-component { .bar { color: red; } }\n' +
-             '//.foo { color: blue }')
+      '.my-component { .bar { color: red; } }\n' +
+      '//.foo { color: blue }'
     )
   })
 
