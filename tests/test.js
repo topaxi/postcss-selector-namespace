@@ -21,6 +21,12 @@ export function compareFixture(name, options, postcssOptions) {
   expect(String(css)).to.equal(String(expected))
 }
 
+export function expectUnchanged(input, options, postcssOptions) {
+  let { css } = transform(input, options, postcssOptions)
+
+  expect(String(css)).to.equal(input)
+}
+
 describe('Basic functionality', () => {
   it('should work', () => {
     compareFixture('basic.css', {
@@ -102,24 +108,16 @@ describe(':root', () => {
 
 describe('@keyframes', () => {
   it('does not transform keyframe definitions', () => {
-    let { css } = transform(
+    expectUnchanged(
       '@keyframes fadeout { from { opacity: 1 } to { opacity: 0 }}',
       { namespace: '.my-component' }
-    )
-
-    expect(String(css)).to.equal(
-      '@keyframes fadeout { from { opacity: 1 } to { opacity: 0 }}'
     )
   })
 
   it('does not transform vendor prefixed keyframe definitions', () => {
-    let { css } = transform(
+    expectUnchanged(
       '@-moz-keyframes fadeout { from { opacity: 1 } to { opacity: 0 }}',
       { namespace: '.my-component' }
-    )
-
-    expect(String(css)).to.equal(
-      '@-moz-keyframes fadeout { from { opacity: 1 } to { opacity: 0 }}'
     )
   })
 })
