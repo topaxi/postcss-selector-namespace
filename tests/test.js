@@ -100,6 +100,19 @@ describe(':root', () => {
   })
 })
 
+describe('@keyframes', () => {
+  it('does not transform keyframe definitions', () => {
+    let { css } = transform(
+      '@keyframes fadeout { from { opacity: 1 } to { opacity: 0 }}',
+      { namespace: '.my-component' }
+    )
+
+    expect(String(css)).to.equal(
+      '@keyframes fadeout { from { opacity: 1 } to { opacity: 0 }}'
+    )
+  })
+})
+
 describe('SCSS', function() {
   const syntax = require('postcss-scss')
 
@@ -144,5 +157,40 @@ describe('SCSS', function() {
     )
 
     expect(String(css)).to.equal(':root { &.bar { color: red; } }')
+  })
+
+  describe('@media nesting', () => {
+    it('media with nested around properties', () => {
+      let { css } = transform(
+        '& { .bar { @media (screen) { color: red; } } }',
+        { selfSelector: '&', namespace: '.my-component' }
+      )
+
+      expect(String(css)).to.equal(
+        '.my-component { .bar { @media (screen) { color: red; } } }'
+      )
+    })
+
+    it('media with nested around selector', () => {
+      let { css } = transform(
+        '& { @media (screen) { .bar { color: red; } } }',
+        { selfSelector: '&', namespace: '.my-component' }
+      )
+
+      expect(String(css)).to.equal(
+        '.my-component { @media (screen) { .bar { color: red; } } }'
+      )
+    })
+
+    it('media with nested around namespaced selector', () => {
+      let { css } = transform(
+        '@media (screen) { & { .bar { color: red; } } }',
+        { selfSelector: '&', namespace: '.my-component' }
+      )
+
+      expect(String(css)).to.equal(
+        '@media (screen) { .my-component { .bar { color: red; } } }'
+      )
+    })
   })
 })
