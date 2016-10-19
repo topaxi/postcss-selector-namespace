@@ -8,8 +8,8 @@ node_js:
   - "0.10"
 
 install:
-  npm install -g yarn
-  yarn install
+  - npm install -g yarn
+  - yarn install
 
 after_success:
   - npm install -g codeclimate-test-reporter
