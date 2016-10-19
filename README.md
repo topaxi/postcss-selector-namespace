@@ -123,6 +123,105 @@ $break = 320px;
 }
 ```
 
+# Example setup with `postcss-import`
+
+Using the excellent plugin
+[postcss-import](https://github.com/postcss/postcss-import),
+we can easily namespace each component with its filename.
+
+`components/my-button.css`
+```css
+:--namespace {
+  border: 1px solid #666;
+  border-radius: 3px;
+}
+```
+
+`components/my-tabs.css`
+```css
+:--namespace {
+  display: flex;
+}
+
+.tab {
+  border: 1px solid #666;
+  border-bottom: none;
+  border-top-radius: 3px;
+  margin: 0 5px;
+}
+```
+
+`main.css`
+```css
+@import 'components/my-button.css';
+@import 'components/my-tabs.css';
+
+body {
+  margin: 0;
+  color: #333;
+}
+```
+
+`build.js`
+```javascript
+const fs = require('fs')
+const path = require('path')
+const postcss = require('postcss')
+const postcssImport = require('postcss-import')
+const postcssSelectorNamespace = require('postcss-selector-namespace')
+
+let css = fs.readFileSync('main.css', 'utf8')
+
+function getComponentName(filename) {
+  if (/components\//.test(filename)) {
+    return path.basename(filename).replace(/\.css$/, '')
+  }
+
+  return null
+}
+
+postcss()
+  .use(postcssImport({
+    transform(css, filename, options) {
+      let componentName = getComponentName(filename)
+
+      if (!componentName) {
+        return css
+      }
+
+      return postcss()
+        .use(postcssSelectorNamespace({ namespace: '.' + componentName }))
+        .process(css)
+        .then(result => result.css)
+    }
+  }))
+  .process(css, { from: 'main.css' })
+  .then(result => {
+    console.log(result.css)
+  })
+```
+
+`node build.js` outputs:
+```css
+.my-button {
+  border: 1px solid #666;
+  border-radius: 3px;
+}
+.my-tabs {
+  display: flex;
+}
+.my-tabs .tab {
+  border: 1px solid #666;
+  border-bottom: none;
+  border-top-radius: 3px;
+  margin: 0 5px;
+}
+body {
+  margin: 0;
+  color: #333;
+}
+```
+
 ## Options
 
 ### `namespace`
