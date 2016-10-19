@@ -44,6 +44,15 @@ describe('Basic functionality', () => {
       namespace: '.my-component'
     })
   })
+
+  it('works with :--namespace not being the first selector', () => {
+    let { css } = transform(
+      '.foo :--namespace {}',
+      { namespace: '.my-component' }
+    )
+
+    expect(String(css)).to.equal('.foo .my-component {}')
+  })
 })
 
 describe(':root', () => {
