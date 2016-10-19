@@ -111,6 +111,17 @@ describe('@keyframes', () => {
       '@keyframes fadeout { from { opacity: 1 } to { opacity: 0 }}'
     )
   })
+
+  it('does not transform vendor prefixed keyframe definitions', () => {
+    let { css } = transform(
+      '@-moz-keyframes fadeout { from { opacity: 1 } to { opacity: 0 }}',
+      { namespace: '.my-component' }
+    )
+
+    expect(String(css)).to.equal(
+      '@-moz-keyframes fadeout { from { opacity: 1 } to { opacity: 0 }}'
+    )
+  })
 })
 
 describe('SCSS', function() {
