@@ -122,6 +122,19 @@ describe('@keyframes', () => {
   })
 })
 
+describe('@supports', () => {
+  it('does namespace in supports atrule', () => {
+    let { css } = transform(
+      '@supports (display: flex) { .bar { display: flex; } }',
+      { namespace: '.my-component' }
+    )
+
+    expect(String(css)).to.equal(
+      '@supports (display: flex) { .my-component .bar { display: flex; } }'
+    )
+  })
+})
+
 describe('SCSS', function() {
   const syntax = require('postcss-scss')
 
