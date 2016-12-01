@@ -202,4 +202,33 @@ describe('SCSS', function() {
       )
     })
   })
+
+  describe('@include mixins', () => {
+    it('works with pseudo elements', () => {
+      let { css } = transform(
+        '@mixin do-a-thing-with-pseudo-elements() {\n' +
+        '  position: relative;\n' +
+        '  &::before {\n' +
+        '    content: \'\';\n' +
+        '  }\n' +
+        '}\n' +
+        '.some-class {\n' +
+        '  @include do-a-thing-with-pseudo-elements();\n' +
+        '}\n',
+        { selfSelector: '&', namespace: '.my-component' }
+      )
+
+      expect(String(css)).to.equal(
+        '@mixin do-a-thing-with-pseudo-elements() {\n' +
+        '  position: relative;\n' +
+        '  &::before {\n' +
+        '    content: \'\';\n' +
+        '  }\n' +
+        '}\n' +
+        '.my-component .some-class {\n' +
+        '  @include do-a-thing-with-pseudo-elements();\n' +
+        '}\n',
+      )
+    })
+  })
 })
