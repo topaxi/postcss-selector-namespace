@@ -1,0 +1,14 @@
+.pony {
+  @for $i from 1 through 3 {
+    &.test-#{$i} {
+      color: pink;
+      background-color: white;
+    }
+  }
+}
+
+@for $i from 1 through 3 {
+  &.column-#{$i} {
+    display: flex;
+  }
+}

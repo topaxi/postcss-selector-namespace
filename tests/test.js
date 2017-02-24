@@ -243,5 +243,14 @@ describe('SCSS', function() {
         '}\n',
       )
     })
+
+    describe('@for', () => {
+      it('does work with rules nested in nested media queries', () => {
+        compareFixture('for.scss',
+          { namespace: '.my-component', selfSelector: '&' },
+          { syntax }
+        )
+      })
+    })
   })
 })

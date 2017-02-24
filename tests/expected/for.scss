@@ -1,0 +1,14 @@
+.my-component .pony {
+  @for $i from 1 through 3 {
+    &.test-#{$i} {
+      color: pink;
+      background-color: white;
+    }
+  }
+}
+
+@for $i from 1 through 3 {
+  .my-component.column-#{$i} {
+    display: flex;
+  }
+}
