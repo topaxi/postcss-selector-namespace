@@ -243,14 +243,14 @@ describe('SCSS', function() {
         '}\n',
       )
     })
+  })
 
-    describe('@for', () => {
-      it('does work with @for and nested @for rules', () => {
-        compareFixture('for.scss',
-          { namespace: '.my-component', selfSelector: '&' },
-          { syntax }
-        )
-      })
+  describe('@for', () => {
+    it('does work with @for and nested @for rules', () => {
+      compareFixture('for.scss',
+        { namespace: '.my-component', selfSelector: '&' },
+        { syntax }
+      )
     })
   })
 })
