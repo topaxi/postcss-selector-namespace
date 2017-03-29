@@ -1,4 +1,5 @@
 import fs                       from 'fs'
+import path                     from 'path'
 import { expect }               from 'chai'
 import postcss                  from 'postcss'
 import postcssSelectorNamespace from '../lib/plugin'
@@ -58,6 +59,15 @@ describe('Basic functionality', () => {
     )
 
     expect(String(css)).to.equal('.foo .my-component {}')
+  })
+
+  it('can accept a function for the namespace option', () => {
+    let { css } = transform(
+      '.foo {}',
+      { namespace: file => '.' + path.basename(file, '.css') },
+      { from: 'bar.css' }
+    )
+    expect(String(css)).to.equal('.bar .foo {}')
   })
 })
 
