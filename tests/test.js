@@ -69,6 +69,14 @@ describe('Basic functionality', () => {
     )
     expect(String(css)).to.equal('.bar .foo {}')
   })
+
+  it('does not apply if computed namespace is falsy', () => {
+    let { css } = transform(
+      '.foo {}',
+      { namespace: file => !!file }
+    )
+    expect(String(css)).to.equal('.foo {}')
+  })
 })
 
 describe(':root', () => {
