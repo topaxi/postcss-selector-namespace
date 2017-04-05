@@ -10,7 +10,6 @@ cache:
     - $HOME/.yarn-cache
 
 install:
-  - npm install -g yarn
   - yarn install --prefer-offline
 
 after_success:
