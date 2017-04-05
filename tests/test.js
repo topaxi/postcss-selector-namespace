@@ -1,32 +1,11 @@
-import fs                       from 'fs'
-import path                     from 'path'
-import { expect }               from 'chai'
-import postcss                  from 'postcss'
-import postcssSelectorNamespace from '../lib/plugin'
-
-export function transform(input, options = {}, postcssOptions = {}) {
-  return postcss()
-    .use(postcssSelectorNamespace(options))
-    .process(input, postcssOptions)
-}
-
-export function compareFixture(name, options, postcssOptions) {
-  let { css } = transform(
-    fs.readFileSync(`${__dirname}/fixtures/${name}`),
-    options,
-    postcssOptions
-  )
-
-  let expected = fs.readFileSync(`${__dirname}/expected/${name}`)
-
-  expect(String(css)).to.equal(String(expected))
-}
-
-export function expectUnchanged(input, options, postcssOptions) {
-  let { css } = transform(input, options, postcssOptions)
-
-  expect(String(css)).to.equal(input)
-}
+import path       from 'path'
+import { expect } from 'chai'
+import {
+  unpad,
+  transform,
+  compareFixture,
+  expectUnchanged
+} from './helpers'
 
 describe('Basic functionality', () => {
   it('should work', () => {
@@ -64,7 +43,7 @@ describe('Basic functionality', () => {
   it('can accept a function for the namespace option', () => {
     let { css } = transform(
       '.foo {}',
-      { namespace: file => '.' + path.basename(file, '.css') },
+      { namespace: file => `.${path.basename(file, '.css')}` },
       { from: 'bar.css' }
     )
     expect(String(css)).to.equal('.bar .foo {}')
@@ -158,29 +137,33 @@ describe('SCSS', function() {
 
   it('does transform basic nesting', () => {
     let { css } = transform(
-      '& { .bar { color: red; } }\n' +
-      '.foo { color: blue }',
+      unpad`
+        & { .bar { color: red; } }
+        .foo { color: blue }
+      `,
       { selfSelector: '&', namespace: '.my-component' }
     )
 
-    expect(String(css)).to.equal(
-      '.my-component { .bar { color: red; } }\n' +
-      '.my-component .foo { color: blue }'
-    )
+    expect(String(css)).to.equal(unpad`
+      .my-component { .bar { color: red; } }
+      .my-component .foo { color: blue }
+    `)
   })
 
   it('does work with single line comments', () => {
     let { css } = transform(
-      '& { .bar { color: red; } }\n' +
-      '//.foo { color: blue }',
+      unpad`
+        & { .bar { color: red; } }
+        //.foo { color: blue }
+      `,
       { selfSelector: '&', namespace: '.my-component' },
       { syntax }
     )
 
-    expect(String(css)).to.equal(
-      '.my-component { .bar { color: red; } }\n' +
-      '//.foo { color: blue }'
-    )
+    expect(String(css)).to.equal(unpad`
+      .my-component { .bar { color: red; } }
+      //.foo { color: blue }
+    `)
   })
 
   it('does work with rules nested in nested media queries', () => {
@@ -237,29 +220,31 @@ describe('SCSS', function() {
   describe('@include mixins', () => {
     it('works with pseudo elements', () => {
       let { css } = transform(
-        '@mixin do-a-thing-with-pseudo-elements() {\n' +
-        '  position: relative;\n' +
-        '  &::before {\n' +
-        '    content: \'\';\n' +
-        '  }\n' +
-        '}\n' +
-        '.some-class {\n' +
-        '  @include do-a-thing-with-pseudo-elements();\n' +
-        '}\n',
+        unpad`
+          @mixin do-a-thing-with-pseudo-elements() {
+            position: relative;
+            &::before {
+              content: '';
+            }
+          }
+          .some-class {
+            @include do-a-thing-with-pseudo-elements();
+          }
+        `,
         { selfSelector: '&', namespace: '.my-component' }
       )
 
-      expect(String(css)).to.equal(
-        '@mixin do-a-thing-with-pseudo-elements() {\n' +
-        '  position: relative;\n' +
-        '  &::before {\n' +
-        '    content: \'\';\n' +
-        '  }\n' +
-        '}\n' +
-        '.my-component .some-class {\n' +
-        '  @include do-a-thing-with-pseudo-elements();\n' +
-        '}\n',
-      )
+      expect(String(css)).to.equal(unpad`
+        @mixin do-a-thing-with-pseudo-elements() {
+          position: relative;
+          &::before {
+            content: '';
+          }
+        }
+        .my-component .some-class {
+          @include do-a-thing-with-pseudo-elements();
+        }
+      `)
     })
   })
 
