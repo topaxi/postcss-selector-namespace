@@ -24,6 +24,14 @@ describe('Basic functionality', () => {
     expect(String(css)).to.equal('.my-component {}')
   })
 
+  it('has a default namespace .self', () => {
+    let { css } = transform(
+      ':--namespace {}'
+    )
+
+    expect(String(css)).to.equal('.self {}')
+  })
+
   it('works with a regexp which matches multiple selectors', () => {
     compareFixture('multiself.css', {
       selfSelector: /&|:--component/,
