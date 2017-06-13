@@ -4,6 +4,10 @@ var _postcss = require('postcss');
 
 var _postcss2 = _interopRequireDefault(_postcss);
 
+var _postcssSelectorParser = require('postcss-selector-parser');
+
+var _postcssSelectorParser2 = _interopRequireDefault(_postcssSelectorParser);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = _postcss2.default.plugin('postcss-selector-namespace', function () {
@@ -18,10 +22,8 @@ module.exports = _postcss2.default.plugin('postcss-selector-namespace', function
       ignoreRoot = _options$ignoreRoot === undefined ? true : _options$ignoreRoot,
       _options$dropRoot = options.dropRoot,
       dropRoot = _options$dropRoot === undefined ? true : _options$dropRoot,
-      _options$canNamespace = options.canNamespaceCallback,
-      canNamespaceCallback = _options$canNamespace === undefined ? function () {
-    return true;
-  } : _options$canNamespace;
+      _options$processHtmlT = options.processHtmlTagSpecifically,
+      processHtmlTagSpecifically = _options$processHtmlT === undefined ? false : _options$processHtmlT;
 
 
   selfSelector = regexpToGlobalRegexp(selfSelector);
@@ -34,11 +36,32 @@ module.exports = _postcss2.default.plugin('postcss-selector-namespace', function
     }
 
     css.walkRules(function (rule) {
-      if (canNamespaceSelectors(rule, canNamespaceCallback)) {
+      if (canNamespaceSelectors(rule)) {
         return;
       }
 
       rule.selectors = rule.selectors.map(function (selector) {
+        if (processHtmlTagSpecifically) {
+          var hasHtml = false;
+          var htmltString = '';
+          (0, _postcssSelectorParser2.default)(function (pSelectors) {
+            pSelectors.walk(function (pSelector) {
+              if (pSelector.value === undefined) return;
+
+              if (pSelector.type === 'tag' && pSelector.value === 'html') {
+                hasHtml = true;
+                htmltString += '' + pSelector.value + computedNamespace;
+
+                return true;
+              }
+
+              htmltString += pSelector.value;
+            });
+          }).process(selector).result;
+
+          if (hasHtml) return htmltString;
+        }
+
         return namespaceSelector(selector, computedNamespace);
       });
     });
@@ -81,8 +104,8 @@ module.exports = _postcss2.default.plugin('postcss-selector-namespace', function
  * @param {Rule} rule The rule to check
  * @return {boolean} whether the rule selectors can be namespaced or not
  */
-);function canNamespaceSelectors(rule, canNamespaceCallback) {
-  return (hasParentRule(rule) || parentIsAllowedAtRule(rule)) && canNamespaceCallback(rule);
+);function canNamespaceSelectors(rule) {
+  return hasParentRule(rule) || parentIsAllowedAtRule(rule);
 }
 
 /**

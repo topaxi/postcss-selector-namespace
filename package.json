@@ -46,6 +46,7 @@
     "postcss-scss": "^0.4.1"
   },
   "dependencies": {
-    "postcss": "^5.2.15"
+    "postcss": "^5.2.15",
+    "postcss-selector-parser": "^2.2.3"
   }
 }

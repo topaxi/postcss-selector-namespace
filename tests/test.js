@@ -47,6 +47,42 @@ describe('Basic functionality', () => {
 
     expect(String(css)).to.equal('.foo .my-component {}')
   })
+  
+  it('namespace html tag by adding namespace to it', () => {
+    let { css } = transform(
+      'html {}',
+      { namespace: '.__', addNameSpaceToHtml: true }
+    )
+
+    expect(String(css)).to.equal('html.__ {}')
+  }) 
+  
+  it('namespace html word inside class name by adding namespace to it', () => {
+    let { css } = transform(
+      '.css-class-html {}',
+      { namespace: '.__', addNameSpaceToHtml: true }
+    )
+
+    expect(String(css)).to.equal('.__ .css-class-html {}')
+  })
+  
+  it('namespace html tag in not first position by adding namespace to it', () => {
+    let { css } = transform(
+      '.css-class-html, html {}',
+      { namespace: '.__', addNameSpaceToHtml: true }
+    )
+
+    expect(String(css)).to.equal('.__ .css-class-html, html.__ {}')
+  })
+   
+  it('namespaces correctly in deep selectors for html by adding namespace to it', () => {
+    let { css } = transform(
+      '.css-class-html .css-class-html2 body, html body, html input, html>.p1 input, html body input , .blabla-class {}',
+      { namespace: '.__', addNameSpaceToHtml: true }
+    )
+
+    expect(String(css)).to.equal('.__ .css-class-html .css-class-html2 body, html.__ body, html.__ input, html.__>.p1 input, html.__ body input, .__ .blabla-class {}')
+  })
 
   it('can accept a function for the namespace option', () => {
     let { css } = transform(
