@@ -22,8 +22,8 @@ module.exports = _postcss2.default.plugin('postcss-selector-namespace', function
       ignoreRoot = _options$ignoreRoot === undefined ? true : _options$ignoreRoot,
       _options$dropRoot = options.dropRoot,
       dropRoot = _options$dropRoot === undefined ? true : _options$dropRoot,
-      _options$processHtmlT = options.processHtmlTagSpecifically,
-      processHtmlTagSpecifically = _options$processHtmlT === undefined ? false : _options$processHtmlT;
+      _options$addNameSpace = options.addNameSpaceToHtml,
+      addNameSpaceToHtml = _options$addNameSpace === undefined ? false : _options$addNameSpace;
 
 
   selfSelector = regexpToGlobalRegexp(selfSelector);
@@ -41,21 +41,21 @@ module.exports = _postcss2.default.plugin('postcss-selector-namespace', function
       }
 
       rule.selectors = rule.selectors.map(function (selector) {
-        if (processHtmlTagSpecifically) {
+        if (addNameSpaceToHtml) {
           var hasHtml = false;
-          var htmltString = '';
-          (0, _postcssSelectorParser2.default)(function (pSelectors) {
+
+          var htmltString = (0, _postcssSelectorParser2.default)(function (pSelectors) {
             pSelectors.walk(function (pSelector) {
+
               if (pSelector.value === undefined) return;
 
               if (pSelector.type === 'tag' && pSelector.value === 'html') {
+
                 hasHtml = true;
-                htmltString += '' + pSelector.value + computedNamespace;
+                pSelector.replaceWith('' + pSelector.value + computedNamespace);
 
                 return true;
               }
-
-              htmltString += pSelector.value;
             });
           }).process(selector).result;
 
