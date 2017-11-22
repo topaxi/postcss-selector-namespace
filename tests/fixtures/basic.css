@@ -23,7 +23,7 @@ div {
   display: block;
 }
 
-/* Multiple selecors */
+/* Multiple selectors */
 .foo, .bar {
   color: yellow;
 }

@@ -1,7 +1,15 @@
 import fs from 'fs'
-import { expect } from 'chai'
+import chai, { expect } from 'chai'
+import chaiJestSnapshot from 'chai-jest-snapshot'
 import postcss from 'postcss'
 import postcssSelectorNamespace from '../lib/plugin'
+
+chai.use(chaiJestSnapshot)
+
+before(() => chaiJestSnapshot.resetSnapshotRegistry())
+beforeEach(function() {
+  chaiJestSnapshot.configureUsingMochaContext(this)
+})
 
 export function transform(input, options, postcssOptions = {}) {
   return postcss()
@@ -9,36 +17,31 @@ export function transform(input, options, postcssOptions = {}) {
     .process(input, postcssOptions)
 }
 
-export function compareFixture(name, options, postcssOptions) {
+export function transformSnapshot(
+  input,
+  options,
+  postcssOptions = {},
+  update = false,
+) {
+  let res = transform(input, options, postcssOptions)
+
+  expect(res.css).to.matchSnapshot(update)
+
+  return res
+}
+
+export function compareFixture(name, options, postcssOptions, update = false) {
   let { css } = transform(
     fs.readFileSync(`${__dirname}/fixtures/${name}`),
     options,
     postcssOptions,
   )
 
-  let expected = fs.readFileSync(`${__dirname}/expected/${name}`)
-
-  expect(String(css)).to.equal(String(expected))
+  expect(css).to.matchSnapshot(update)
 }
 
 export function expectUnchanged(input, options, postcssOptions) {
   let { css } = transform(input, options, postcssOptions)
 
   expect(String(css)).to.equal(input)
-}
-
-export function unpad([str]) {
-  let lines = str.split('\n')
-  let m = lines[1] !== void 0 && lines[1].match(/^\s+/)
-
-  if (!m) {
-    return str
-  }
-
-  let spaces = m[0].length
-
-  return lines
-    .map(line => line.slice(spaces))
-    .join('\n')
-    .trim()
 }

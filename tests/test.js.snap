@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`:root does drop :root if dropRoot is true 1`] = `":root .foo {}"`;
+
+exports[`:root does namespace :root selectors if ignoreRoot is false 1`] = `".my-component :root .foo {}"`;
+
+exports[`:root does not drop :root if it's the only selector 1`] = `":root {}"`;
+
+exports[`:root does not namespace :root selectors 1`] = `
+":root .my-component {
+  color: red;
+}
+
+.foo {
+  color: blue;
+}
+"
+`;
+
+exports[`:root is configurable 1`] = `".my-component :root .foo {}.foo {}"`;
+
+exports[`@supports does namespace in supports atrule 1`] = `"@supports (display: flex) { .my-component .bar { display: flex; } }"`;
+
+exports[`Basic functionality can accept a function for the namespace option 1`] = `".bar .foo {}"`;
+
+exports[`Basic functionality does not apply if computed namespace is falsy 1`] = `".foo {}"`;
+
+exports[`Basic functionality has a default namespace .self 1`] = `".self {}"`;
+
+exports[`Basic functionality has a default namespace selector of :--namespace 1`] = `".my-component {}"`;
+
+exports[`Basic functionality should work 1`] = `
+"/* Toplevel pseudo */
+.namespaced :hover {
+  color: red;
+}
+
+/* Custom selector */
+.namespaced {
+  color: blue;
+}
+
+/* toplevel class */
+.namespaced .title {
+  font-weight: bold;
+}
+
+/* Custom */
+.namespaced .title {
+  color: black;
+}
+
+/* Toplevel element */
+.namespaced div {
+  display: block;
+}
+
+/* Multiple selectors */
+.namespaced .foo, .namespaced .bar {
+  color: yellow;
+}
+
+/* NOT */
+.namespaced :not(.foo, .bar) {
+  color: purple;
+}
+"
+`;
+
+exports[`Basic functionality works with :--namespace not being the first selector 1`] = `".foo .my-component {}"`;
+
+exports[`Basic functionality works with a regexp which matches multiple selectors 1`] = `
+".my-component {
+  color: red;
+}
+
+.my-component {
+  color: blue;
+}
+"
+`;
+
+exports[`SCSS @for does work with @for and nested @for rules 1`] = `
+".my-component .pony {
+  @for $i from 1 through 3 {
+    &.test-#{$i} {
+      color: pink;
+      background-color: white;
+    }
+  }
+}
+
+@for $i from 1 through 3 {
+  .my-component.column-#{$i} {
+    display: flex;
+  }
+}
+"
+`;
+
+exports[`SCSS @include mixins works with pseudo elements 1`] = `
+"
+          @mixin do-a-thing-with-pseudo-elements() {
+            position: relative;
+            &::before {
+              content: '';
+            }
+          }
+          .my-component .some-class {
+            @include do-a-thing-with-pseudo-elements();
+          }
+        "
+`;
+
+exports[`SCSS @media nesting media with nested around namespaced selector 1`] = `"@media (screen) { .my-component { .bar { color: red; } } }"`;
+
+exports[`SCSS @media nesting media with nested around properties 1`] = `".my-component { .bar { @media (screen) { color: red; } } }"`;
+
+exports[`SCSS @media nesting media with nested around selector 1`] = `".my-component { @media (screen) { .bar { color: red; } } }"`;
+
+exports[`SCSS does transform basic nesting 1`] = `
+"
+        .my-component { .bar { color: red; } }
+        .my-component .foo { color: blue }
+      "
+`;
+
+exports[`SCSS does work with rules nested in nested media queries 1`] = `
+"$break-small: 320px;
+$break-large: 1200px;
+
+.my-component {
+  float: left;
+  width: 250px;
+  h1 {
+    font-weight: bold;
+  }
+  @media screen and (max-width: $break-small) {
+    width: 100px;
+    float: none;
+    h1 {
+      font-size: 32px;
+    }
+  }
+  @media screen and (min-width: $break-large) {
+    float: right;
+    h1 {
+      font-size: 48px;
+    }
+  }
+}
+"
+`;
+
+exports[`SCSS does work with single line comments 1`] = `
+"
+        .my-component { .bar { color: red; } }
+        //.foo { color: blue }
+      "
+`;
+
+exports[`SCSS works with :root selector 1`] = `":root { &.bar { color: red; } }"`;
