@@ -1,5 +1,4 @@
 import path from 'path'
-import { expect } from 'chai'
 import { transformSnapshot, compareFixture, expectUnchanged } from './helpers'
 
 describe('Basic functionality', () => {
