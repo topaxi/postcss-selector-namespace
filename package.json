@@ -1,11 +1,10 @@
 {
   "name": "postcss-selector-namespace",
   "version": "1.4.1",
-  "description": "A postcss plugin to prefix each rule with a specific selector",
+  "description":
+    "A postcss plugin to prefix each rule with a specific selector",
   "babel": {
-    "presets": [
-      "es2015"
-    ]
+    "presets": ["es2015"]
   },
   "main": "dist/plugin.js",
   "directories": {
@@ -13,7 +12,8 @@
   },
   "scripts": {
     "prepublish": "babel lib --out-dir dist",
-    "test": "babel-node node_modules/babel-istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- tests/test.js",
+    "test":
+      "babel-node node_modules/babel-istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- tests/test.js",
     "lint": "eslint lib/* tests/*"
   },
   "repository": {

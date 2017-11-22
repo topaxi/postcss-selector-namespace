@@ -1,6 +1,6 @@
-import fs                       from 'fs'
-import { expect }               from 'chai'
-import postcss                  from 'postcss'
+import fs from 'fs'
+import { expect } from 'chai'
+import postcss from 'postcss'
 import postcssSelectorNamespace from '../lib/plugin'
 
 export function transform(input, options, postcssOptions = {}) {
@@ -13,7 +13,7 @@ export function compareFixture(name, options, postcssOptions) {
   let { css } = transform(
     fs.readFileSync(`${__dirname}/fixtures/${name}`),
     options,
-    postcssOptions
+    postcssOptions,
   )
 
   let expected = fs.readFileSync(`${__dirname}/expected/${name}`)
@@ -27,7 +27,7 @@ export function expectUnchanged(input, options, postcssOptions) {
   expect(String(css)).to.equal(input)
 }
 
-export function unpad([ str ]) {
+export function unpad([str]) {
   let lines = str.split('\n')
   let m = lines[1] !== void 0 && lines[1].match(/^\s+/)
 
