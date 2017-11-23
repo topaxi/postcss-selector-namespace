@@ -84,14 +84,12 @@ describe('@keyframes', () => {
   it('does not transform keyframe definitions', () => {
     expectUnchanged(
       '@keyframes fadeout { from { opacity: 1 } to { opacity: 0 }}',
-      { namespace: '.my-component' },
     )
   })
 
   it('does not transform vendor prefixed keyframe definitions', () => {
     expectUnchanged(
       '@-moz-keyframes fadeout { from { opacity: 1 } to { opacity: 0 }}',
-      { namespace: '.my-component' },
     )
   })
 })
