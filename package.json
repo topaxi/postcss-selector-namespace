@@ -8,7 +8,7 @@
         "env",
         {
           "targets": {
-            "node": "4.5.0"
+            "node": "6.0.0"
           }
         }
       ]
@@ -28,7 +28,7 @@
     "url": "https://github.com/topaxi/postcss-selector-namespace"
   },
   "engines": {
-    "node": ">= 4.0.0"
+    "node": ">= 6.0.0"
   },
   "author": "Damian Senn <damian.senn@topaxi.codes>",
   "license": "MIT",
