@@ -45,7 +45,7 @@
     "babel-cli": "6.26.0",
     "babel-eslint": "7.2.3",
     "babel-istanbul": "0.12.2",
-    "babel-preset-env": "1.6.1",
+    "babel-preset-env": "1.7.0",
     "babel-register": "6.26.0",
     "chai": "4.2.0",
     "chai-jest-snapshot": "2.0.0",
