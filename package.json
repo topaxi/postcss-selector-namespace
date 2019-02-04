@@ -5,7 +5,7 @@
   "babel": {
     "presets": [
       [
-        "env",
+        "@babel/env",
         {
           "targets": {
             "node": "6.0.0"
@@ -20,8 +20,9 @@
   },
   "scripts": {
     "prepublish": "babel lib --out-dir dist",
-    "test": "babel-node node_modules/babel-istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- tests/test.js",
-    "lint": "eslint lib/* tests/*"
+    "test": "nyc --require @babel/register node_modules/mocha/bin/_mocha -- tests/test.js",
+    "lint": "eslint lib/**/*.js tests/**/*.js",
+    "lcov": "nyc report --reporter=lcov"
   },
   "repository": {
     "type": "git",
@@ -41,17 +42,17 @@
     "namespace"
   ],
   "devDependencies": {
-    "babel": "6.23.0",
-    "babel-cli": "6.26.0",
-    "babel-eslint": "7.2.3",
-    "babel-istanbul": "0.12.2",
-    "babel-preset-env": "1.6.1",
-    "babel-register": "6.26.0",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/register": "^7.0.0",
+    "babel-eslint": "10.0.1",
     "chai": "4.2.0",
     "chai-jest-snapshot": "2.0.0",
-    "eslint": "4.19.1",
+    "eslint": "5.13.0",
     "eslint-plugin-prettier": "3.0.1",
     "mocha": "5.2.0",
+    "nyc": "^13.1.0",
     "postcss-scss": "2.0.0"
   },
   "dependencies": {

@@ -19,5 +19,6 @@ script:
   - yarn test
 
 after_success:
+  - yarn lcov
   - npm install -g codeclimate-test-reporter
   - CODECLIMATE_REPO_TOKEN=894d8b642aaea5b4d6e952752ec6afb8816d4b554a2738b8b6d87f832c7dbce4 codeclimate-test-reporter < coverage/lcov.info

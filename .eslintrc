@@ -6,11 +6,6 @@
     "node": true,
     "amd": false
   },
-  "ecmaFeatures": {
-    "blockBindings": true,
-    "modules": true,
-    "module": true
-  },
   "plugins": [
     "prettier"
   ],
