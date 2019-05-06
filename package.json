@@ -20,7 +20,7 @@
   },
   "scripts": {
     "prepublish": "babel lib --out-dir dist",
-    "test": "nyc --require @babel/register node_modules/mocha/bin/_mocha -- tests/test.js",
+    "test": "nyc --require @babel/register node_modules/mocha/bin/_mocha -- --extensions js tests/test.js",
     "lint": "eslint lib/**/*.js tests/**/*.js",
     "lcov": "nyc report --reporter=lcov"
   },
