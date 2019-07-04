@@ -1,6 +1,6 @@
 {
   "name": "postcss-selector-namespace",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A postcss plugin to prefix each rule with a specific selector",
   "babel": {
     "presets": [
@@ -8,7 +8,7 @@
         "@babel/env",
         {
           "targets": {
-            "node": "6.0.0"
+            "node": "8.0.0"
           }
         }
       ]
@@ -29,7 +29,7 @@
     "url": "https://github.com/topaxi/postcss-selector-namespace"
   },
   "engines": {
-    "node": ">= 6.0.0"
+    "node": ">= 8.0.0"
   },
   "author": "Damian Senn <damian.senn@topaxi.codes>",
   "license": "MIT",
