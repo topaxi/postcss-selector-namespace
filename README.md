@@ -3,7 +3,7 @@
 # Installation
 
 ```bash
-$ npm install postcss-selector-namespace
+$ npm i postcss postcss-selector-namespace
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ var postcss = require('postcss')
 var selectorNamespace = require('postcss-selector-namespace')
 
 var output = postcss()
-  .use(selectorNamespace({ selfSelector: ':--component', namespace: 'my-component' }))
+  .use(selectorNamespace({ selfSelector: ':--component', namespace: '.my-component' }))
   .process(require('fs').readFileSync('input.css', 'utf8'))
   .css
 ```
@@ -61,6 +61,49 @@ will output the selector without any namespace:
 
 ```css
 h1 {
+  font-weight: bold;
+}
+```
+
+### Adding multiple namespaces is also supported.
+
+```javascript
+var postcss = require('postcss')
+var selectorNamespace = require('postcss-selector-namespace')
+
+var output = postcss()
+  .use(selectorNamespace({ selfSelector: ':--component', namespace: '.foo, .bar' }))
+  .process(require('fs').readFileSync('input.css', 'utf8'))
+  .css
+```
+
+`input.css`
+```css
+:--component {
+  color: black;
+}
+
+:--component.danger {
+  color: red;
+}
+
+h1, .h1 {
+  font-weight: bold;
+}
+```
+
+will output the following css:
+
+```css
+.foo, .bar {
+  color: black;
+}
+
+.foo.danger, .bar.danger {
+  color: red;
+}
+
+.foo h1, .bar .h1 {
   font-weight: bold;
 }
 ```
@@ -228,7 +271,7 @@ body {
 
 (default: `'.self'`)
 
-The selector to prepend to each selector.
+The selector(s) to prepend to each selector.
 
 ### `selfSelector`
 
