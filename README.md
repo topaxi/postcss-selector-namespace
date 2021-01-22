@@ -3,7 +3,7 @@
 # Installation
 
 ```bash
-$ npm install postcss-selector-namespace
+$ npm i postcss postcss-selector-namespace
 ```
 
 ## Usage
