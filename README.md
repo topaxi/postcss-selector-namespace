@@ -65,6 +65,49 @@ h1 {
 }
 ```
 
+### Adding multiple namespaces is also supported.
+
+```javascript
+var postcss = require('postcss')
+var selectorNamespace = require('postcss-selector-namespace')
+
+var output = postcss()
+  .use(selectorNamespace({ selfSelector: ':--component', namespace: '.foo, .bar' }))
+  .process(require('fs').readFileSync('input.css', 'utf8'))
+  .css
+```
+
+`input.css`
+```css
+:--component {
+  color: black;
+}
+
+:--component.danger {
+  color: red;
+}
+
+h1, .h1 {
+  font-weight: bold;
+}
+```
+
+will output the following css:
+
+```css
+.foo, .bar {
+  color: black;
+}
+
+.foo.danger, .bar.danger {
+  color: red;
+}
+
+.foo h1, .bar .h1 {
+  font-weight: bold;
+}
+```
+
 ## SCSS support
 
 This plugin can also process scss files and output scss again using the
