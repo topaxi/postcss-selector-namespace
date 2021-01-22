@@ -41,6 +41,10 @@ describe('Basic functionality', () => {
   it('does not apply if computed namespace is falsy', () => {
     transformSnapshot('.foo {}', { namespace: file => !!file })
   })
+
+  it('works with multiple namespaces', () => {
+    transformSnapshot('.selector {}', { namespace: '.foo, .bar' })
+  })
 })
 
 describe(':root', () => {
