@@ -13,7 +13,7 @@ var postcss = require('postcss')
 var selectorNamespace = require('postcss-selector-namespace')
 
 var output = postcss()
-  .use(selectorNamespace({ selfSelector: ':--component', namespace: 'my-component' }))
+  .use(selectorNamespace({ selfSelector: ':--component', namespace: '.my-component' }))
   .process(require('fs').readFileSync('input.css', 'utf8'))
   .css
 ```
@@ -228,7 +228,7 @@ body {
 
 (default: `'.self'`)
 
-The selector to prepend to each selector.
+The selector(s) to prepend to each selector.
 
 ### `selfSelector`
 
