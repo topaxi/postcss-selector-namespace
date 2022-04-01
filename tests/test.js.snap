@@ -80,6 +80,8 @@ exports[`Basic functionality works with a regexp which matches multiple selector
 "
 `;
 
+exports[`Basic functionality works with multiple namespaces 1`] = `".foo .selector, .bar .selector {}"`;
+
 exports[`SCSS @for does work with @for and nested @for rules 1`] = `
 ".my-component .pony {
   @for $i from 1 through 3 {
