@@ -14,7 +14,7 @@
       ]
     ]
   },
-  "main": "dist/plugin.js",
+  "main": "lib/plugin.js",
   "directories": {
     "test": "tests"
   },
