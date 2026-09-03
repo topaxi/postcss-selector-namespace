@@ -42,10 +42,10 @@
     "namespace"
   ],
   "devDependencies": {
-    "@babel/cli": "7.7.0",
+    "@babel/cli": "8.0.4",
     "@babel/core": "7.7.2",
-    "@babel/preset-env": "7.7.1",
-    "@babel/register": "7.7.0",
+    "@babel/preset-env": "8.0.2",
+    "@babel/register": "8.0.1",
     "babel-eslint": "10.0.3",
     "chai": "4.2.0",
     "chai-jest-snapshot": "2.0.0",
